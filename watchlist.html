@@ -14,11 +14,11 @@
     </head>
     <body>
         <header>
-            <h1 id="main-locator" class="locator">My Watchlist</h1>
-            <p id="watchlist-locator" class="locator">Find your film</p>
+            <h1 id="watchList">My Watchlist</h1>
+            <p id="main-locator" class="locator">Find your film</p>
         </header>
         <main class="watchlist-main" id="watchlist-main">
-            
+                <!-- watchlist movies go here -->
         </main>
         <footer>
             Built with <span class="love">❤️</span> by <span class="brand">Alien_Territory<span> © 2025
@@ -80,6 +80,13 @@
             
             document.getElementById("main-locator").addEventListener("click", () => {
                 window.location.href = "index.html" 
+            })
+
+            watchlistMain.addEventListener("click", (e) => {
+                if(e.target.closest(".fa-plus")){
+                    window.location.href = "index.html" 
+                    console.log("clicked")
+                }
             })
         </script>
     </body>
