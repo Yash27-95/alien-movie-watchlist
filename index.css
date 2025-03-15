@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    touch-action: manipulation;
 }
 
 html, body {
@@ -264,10 +265,10 @@ footer {
 .remove-film:active,
 .add-film:focus,
 .remove-film:focus {
-    box-sizing: border-box;
-    font-weight: 600;
-    border-bottom: 2px solid black;
+    font-weight: 900;
+    scale: 0.9;
 }
+
 
 /* desktop design */
 
