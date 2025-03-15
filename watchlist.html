@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <!-- meta view port tag to responsive design -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- fonts from google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <!-- Font Awesome CDN (Latest Version) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <!-- link to style sheet -->
+        <link rel="stylesheet" href="index.css">
+        <title>Movie watchlist</title>
+    </head>
+    <body>
+        <header>
+            <h1 id="main-locator" class="locator">My Watchlist</h1>
+            <p id="watchlist-locator" class="locator">Find your film</p>
+        </header>
+        <main class="watchlist-main" id="watchlist-main">
+            
+        </main>
+        <footer>
+            Built with <span class="love">❤️</span> by <span class="brand">Alien_Territory<span> © 2025
+        </footer>
+        <script>
+            const watchlistMain = document.getElementById("watchlist-main")
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                const storedMovies = JSON.parse(localStorage.getItem("watchList")) || []
+                
+                if (storedMovies.length === 0) {
+                    watchlistMain.innerHTML = `
+                        <div class="watchlist-placeholder">
+                            <p>Your watchlist is looking a little empty...</p>
+                            <span><i class="fa-solid fa-plus"></i>Let's add some movies!</span>
+                        </div>
+                    `
+                } else {
+                    watchlistMain.innerHTML = createFilmsCard(storedMovies)
+                }
+            });
+            
+            function createFilmsCard(films) {
+                let filmsCard = ""
+                films.forEach(film => {
+                    let {Title, imdbRating, Runtime, Genre, Plot, Poster, imdbID} = film
+                    filmsCard += `
+                        <div class="card" id="${imdbID}">
+                            <div class="poster">
+                                <img src="${Poster}" alt="${Title}" class="poster-img"/>
+                            </div>
+                            <div class="film-details">
+                                <h4>${Title} <span class="rating">⭐ ${imdbRating}</span></h4>
+                                <div class="rgw">
+                                    <span class="runtime">${Runtime}</span>
+                                    <span class="genre">${Genre}</span>
+                                    <span class="remove-film" data-film="${imdbID}"><i class="fa-solid fa-minus"></i> Watchlist</span>
+                                </div>
+                                <p class="plot">${Plot}</p>
+                            </div>
+                        </div>
+                        <hr/>
+                    `  
+                })
+                
+                return filmsCard
+            }
+            
+            watchlistMain.addEventListener("click", (e) => {
+                if(e.target.closest(".remove-film")) {
+                    const filmID = e.target.closest(".remove-film").getAttribute("data-film")
+                    let storedMovies = JSON.parse(localStorage.getItem("watchList")) || []
+                    storedMovies = storedMovies.filter(movie => movie.imdbID !== filmID)
+                    localStorage.setItem("watchList", JSON.stringify(storedMovies));
+                    
+                    window.location.reload();
+                }
+            })
+            
+            document.getElementById("main-locator").addEventListener("click", () => {
+                window.location.href = "index.html" 
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,281 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                url("/main-img.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: black;
+    background-size: cover;
+    height: 200px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+h1 {
+    font-size: 1.5rem;  
+}
+
+h4{
+    display: flex;
+    align-items: center;
+}
+
+header p {
+    font-size: 0.8rem;
+}
+
+.locator {
+    cursor: pointer;
+}
+
+/* Form */
+
+form {
+    max-width: 550px;
+    padding: 0 1em;
+    position: relative;
+    transform: translateY(-50%);
+    height: fit-content;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+
+input, button{
+    border: 1px solid #D1D5DB;
+    margin: 0;
+    background-color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+input {
+    flex: 1;
+    padding: 0.5em;
+    border-radius: 5px 0 0 5px;
+}
+
+button {
+    padding: 0.5em 1em;
+    color: #374151;
+    border-radius: 0 5px 5px 0;
+    font-weight: 500;
+}
+
+input:hover,
+input:focus{
+    outline: none;
+}
+
+/* error */
+
+#error-message {
+    text-align: center;
+    font-size: small;
+}
+
+/* main */
+
+main {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+/* index main before populating*/
+
+.index-main {
+    /* border: 2px solid red; */
+    min-height: calc(100vh - 200px);
+    /* transform: translateY(-10%); */
+}
+
+#index-placeholder {
+    color: #DFDDDD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(100px);
+}
+
+.fa-film {
+    font-size: 2rem;
+}
+
+.index-placeholder span {
+   font-weight: 600;
+}
+
+#index-placeholder p {
+    text-align: center;
+    font-weight: 600;
+}
+
+/* watchlist main */
+
+.watchlist-main {
+    /* border: 1px solid red; */
+    min-height: calc(100vh - 200px);
+}
+
+.watchlist-placeholder {
+    text-align: center;
+    transform: translateY(100px);
+}
+
+.watchlist-placeholder p {
+    margin-bottom: 1em;
+    color: #DFDDDD;
+    font-weight: 600;
+}
+
+.watchlist-placeholder span {
+    color: #363636;   
+}
+.watchlist-placeholder .fa-plus {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* film card */
+
+.card {
+    /* border: 1px solid red; */
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    /* justify-content: space-between; */
+    padding: 1em 0;
+}
+
+.poster {
+    /* border: 1px solid green; */
+    width: 120px;
+}
+
+.poster-img{
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
+}
+
+.film-details {
+    flex: 1;
+    /* border: 1px solid yellow; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rgw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.rating {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.rating, .runtime, .genre {
+    font-size: 12px;
+    color: #111827;
+    font-weight: 400;
+}
+
+.add-film, .remove-film{
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.plot {
+    font-size: 0.75rem;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+hr {
+    border: none;      /* Removes default border */
+    height: 1px;       /* Sets thickness */
+    background-color: #ccc;
+}
+
+.card:last-of-type + hr {
+    display: none;
+}
+
+/* footer */
+
+footer {
+    background-color: #111827;
+    padding: 1em;
+    text-align: center;
+    /* margin-bottom: 0; */
+    color: #fff;
+    font-size: smaller;
+    font-family: inherit;
+}
+
+.love {
+    font-size: 14px; /* Adjust size */
+    display: inline-block;
+    animation: heartbeat 1s infinite ease-in-out;
+    color: red; /* Heart color */ 
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* desktop design */
+
+@media (min-width : 550px) {
+    header {
+        padding: 1em 5em;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+    
+    .rgw {
+        gap: 15px;
+    }
+    
+    .plot {
+        font-size: 0.875rem;
+    }
+}
+
