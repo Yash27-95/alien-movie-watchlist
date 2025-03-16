@@ -6,33 +6,39 @@ const watchlistMain = document.getElementById("watchlist-main")
 
 const apiKey = "6c80cdeb"
 
-let films = []
-
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault()
-    const enteredValue = document.getElementById("film-name").value 
-    fetch(`https://www.omdbapi.com/?t=${enteredValue}&apikey=${apiKey}`)
-        .then(res => res.json())
-        .then(data => {
-            if(!enteredValue || data.Error){
-                if(indexMain.contains(defaultMain)){
-                    defaultMain.innerHTML = `
-                        <p>Unable to find what you are looking for. Please try another search.</p>
-                    `   
-                }else{
-                    errorMessage.textContent = "No such film found ☹️";
-                    errorMessage.style.display = "block";
+    const enteredValue = document.getElementById("film-name").value
+    const response = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(enteredValue)}&apikey=${apiKey}`);
+    const data = await response.json(); 
+    if(!enteredValue || data.Error){
+        if(indexMain.contains(defaultMain)){
+            defaultMain.innerHTML = `
+                <p>Unable to find what you are looking for. Please try another search.</p>
+            `   
+        }else{
+            errorMessage.textContent = "No such film found ☹️";
+            errorMessage.style.display = "block";
+        
+            setTimeout(() => {
+            errorMessage.style.display = "none";
+            }, 2000);
+        }
+    }else {
+        let movies = data.Search
+        document.getElementById("film-name").value = ""
 
-                    // Hide the message after 2 seconds
-                    setTimeout(() => {
-                        errorMessage.style.display = "none";
-                    }, 2000);
-                }
-            }else {
-                handleFilm(data)
-                document.getElementById("film-name").value = ""
-            }
-        })
+        const moviesWithDetails = await Promise.all(
+            movies.map(async (movie) => {
+                const detailsResponse = await fetch(`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=${apiKey}`);
+                return detailsResponse.json();
+            })
+        );
+        
+        handleFilm(moviesWithDetails)
+    }
+
+
 })
 
 indexMain.addEventListener("click", (e) => {
@@ -90,9 +96,7 @@ function createFilmsCard(films) {
     return filmsCard
 }
 
-function handleFilm(film) {
-    const filmFound = films.find(item => item["Title"] === film["Title"])
-    filmFound ? alert("You have this film listed below") : films.unshift(film)
+function handleFilm(films) {
     indexMain.innerHTML = createFilmsCard(films) 
 }
 
